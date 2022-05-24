@@ -1,3 +1,4 @@
+import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -55,7 +56,7 @@ class ImagePasteCommand(sublime_plugin.TextCommand):
         command = ["pngpaste", str(destination)]
 
         file = Path(variables.get("file_path"))
-        relative_path = destination.relative_to(file)
+        relative_path = os.path.relpath(str(destination),str(file))
         text_to_insert = "{}{}{}".format(
             settings.get("paste_prefix"),
             str(relative_path),
